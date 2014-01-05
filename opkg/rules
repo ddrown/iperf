@@ -7,6 +7,8 @@ case "$1" in
   build)
     ./configure --host=arm-linux \
       CC=agcc CXX=ag++ --prefix=/data/local 
+    # detection of malloc fails when cross compiling
+    sed -i 's/#define malloc rpl_malloc//' config.h
     make
     ;;
 
