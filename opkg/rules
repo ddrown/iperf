@@ -1,0 +1,27 @@
+#!/bin/sh
+set -e
+
+PACKAGE=iperf
+
+case "$1" in
+  build)
+    ./configure --host=arm-linux \
+      CC=agcc CXX=ag++ --prefix=/data/local 
+    make
+    ;;
+
+  install)
+    DESTDIR=~/tmp/$PACKAGE
+    rm -rf $DESTDIR
+    mkdir $DESTDIR
+    make install DESTDIR=$DESTDIR
+    ;;
+
+  clean)
+    make clean
+    ;;
+
+  *)
+    echo unknown argument $1
+    ;;
+esac
