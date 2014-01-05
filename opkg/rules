@@ -5,7 +5,7 @@ PACKAGE=iperf
 
 case "$1" in
   build)
-    ./configure --host=arm-linux \
+    ./configure --host=arm-linux LDFLAGS="-Wl,-dynamic-linker,/data/local/bin/linker" \
       CC=agcc CXX=ag++ --prefix=/data/local 
     # detection of malloc fails when cross compiling
     sed -i 's/#define malloc rpl_malloc//' config.h
